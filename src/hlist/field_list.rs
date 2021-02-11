@@ -13,6 +13,7 @@ pub trait FieldList<'a> {
 
     fn names(&self) -> Self::NamesOutput;
     fn values(&'a self) -> Self::ValuesOutput;
+    fn into_values(self) -> Self::ValueTypes;
 }
 
 impl<'a, N, T, Tail> FieldList<'a> for HCons<Field<N, T>, Tail>
@@ -39,6 +40,13 @@ where
             tail: self.tail.values(),
         }
     }
+
+    fn into_values(self) -> Self::ValueTypes {
+        HCons {
+            head: self.head.value,
+            tail: self.tail.into_values()
+        }
+    }
 }
 
 impl<'a> FieldList<'a> for HNil {
@@ -53,6 +61,10 @@ impl<'a> FieldList<'a> for HNil {
     }
 
     fn values(&self) -> Self::ValuesOutput {
+        HNil
+    }
+
+    fn into_values(self) -> Self::ValueTypes {
         HNil
     }
 }
