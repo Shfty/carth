@@ -4,11 +4,13 @@ mod into_iter;
 mod iter;
 mod iterator;
 mod to_vec_list;
+mod collect;
 
 pub use into_iter::*;
 pub use iter::*;
 pub use iterator::*;
 pub use to_vec_list::*;
+pub use collect::*;
 
 use frunk_core::hlist::{HCons, HList, HNil};
 
